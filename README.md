@@ -13,7 +13,7 @@ Une application de gestion de notes utilisant Tkinter pour l'interface utilisate
 
 1. Clonez le dépôt :
     ```sh
-    git clone https://github.com/votre-utilisateur/gestionnaire-de-notes.git
+    [git clone https://github.com/votre-utilisateur/gestionnaire-de-notes.git](https://github.com/johndoe1117/NotesManagement.git)
     ```
 2. Installez les dépendances :
     ```sh
