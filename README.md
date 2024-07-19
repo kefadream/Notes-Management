@@ -1,3 +1,8 @@
+# Preview
+![Tags_Interface](https://github.com/user-attachments/assets/3569955b-fdf8-49f1-92a3-0c8f5859fd02)
+![Notes_interface](https://github.com/user-attachments/assets/3d6b4afb-a8ab-4dc1-85f4-a0754ddf6187)
+![Main_interface](https://github.com/user-attachments/assets/7330f678-99b9-4788-ade8-eb65a79fb2ed)
+
 # Gestionnaire de Notes
 
 Une application de gestion de notes utilisant Tkinter pour l'interface utilisateur.
