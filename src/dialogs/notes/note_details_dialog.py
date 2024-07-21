@@ -7,18 +7,16 @@ permettant d'afficher les détails d'une note.
 
 import tkinter as tk
 from tkinter import ttk
+from src.utils import ImageButton
 
 
 class NoteDetailsDialog(tk.Toplevel):
-    """
-    Dialogue pour afficher les détails d'une note.
-    """
-    def __init__(self, parent, note):
-        """
-        Initialise le dialogue de détails de note.
-        """
+    def __init__(self, parent, note, theme_manager):
         super().__init__(parent)
         self.title("Détails de la note")
+        self.theme_manager = theme_manager
+
+        self.resizable(False, False)
 
         frame = ttk.Frame(self, padding="10")
         frame.grid(row=0, column=0, sticky=tk.W + tk.E + tk.N + tk.S)
@@ -35,4 +33,10 @@ class NoteDetailsDialog(tk.Toplevel):
         ttk.Label(frame, text="Tags").grid(row=2, column=0, padx=5, pady=5, sticky=tk.W)
         ttk.Label(frame, text=', '.join(note.tags)).grid(row=2, column=1, padx=5, pady=5, sticky=tk.W)
 
-        ttk.Button(frame, text="Fermer", command=self.destroy).grid(row=3, column=0, padx=5, pady=5, columnspan=2)
+        button_frame = ttk.Frame(frame)
+        button_frame.grid(row=3, column=0, columnspan=2, pady=5)
+
+        close_button = ImageButton(button_frame, "icons/close.png", command=self.destroy, size=(24, 24))
+        close_button.pack(side=tk.LEFT, padx=5)
+
+        self.theme_manager.apply_theme(self)

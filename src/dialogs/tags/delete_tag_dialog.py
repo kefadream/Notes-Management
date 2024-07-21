@@ -7,18 +7,18 @@ permettant de supprimer un tag existant.
 
 import tkinter as tk
 from tkinter import ttk, messagebox
+from src.utils import ImageButton
+
+
 class DeleteTagDialog(tk.Toplevel):
-    """
-    Dialogue pour supprimer un tag existant.
-    """
-    def __init__(self, parent, tags, callback, theme_manager):
-        """
-        Initialise le dialogue de suppression de tag.
-        """
+    def __init__(self, parent, tags, callback, theme_manager, config):
         super().__init__(parent)
         self.title("Supprimer un tag")
         self.callback = callback
         self.theme_manager = theme_manager
+        self.config = config
+
+        self.resizable(False, False)
 
         frame = ttk.Frame(self, padding="10")
         frame.grid(row=0, column=0, sticky=tk.W + tk.E + tk.N + tk.S)
@@ -31,13 +31,18 @@ class DeleteTagDialog(tk.Toplevel):
         for tag in tags:
             self.tags_listbox.insert(tk.END, tag)
 
-        ttk.Button(frame, text="Supprimer", command=self.delete_tag).grid(row=2, column=1, padx=5, pady=5, sticky=tk.E)
-        ttk.Button(frame, text="Annuler", command=self.destroy).grid(row=2, column=0, padx=5, pady=5, sticky=tk.W)
+        button_frame = ttk.Frame(frame)
+        button_frame.grid(row=2, column=0, columnspan=2, pady=5)
+
+        delete_button = ImageButton(button_frame, self.config['icons']['delete'], command=self.delete_tag,
+                                    size=(24, 24))
+        delete_button.pack(side=tk.LEFT, padx=5)
+        cancel_button = ImageButton(button_frame, self.config['icons']['cancel'], command=self.destroy, size=(24, 24))
+        cancel_button.pack(side=tk.LEFT, padx=5)
+
+        self.theme_manager.apply_theme(self)
 
     def delete_tag(self):
-        """
-        Supprime le tag sélectionné.
-        """
         selection = self.tags_listbox.curselection()
         if selection:
             tag = self.tags_listbox.get(selection[0])

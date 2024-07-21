@@ -1,13 +1,3 @@
-"""
-Gestion de la configuration pour l'application de gestion de notes.
-
-Ce module contient les fonctions pour charger et sauvegarder la configuration
-depuis et vers un fichier config.json.
-
-Fonctions:
-    load_config: Charge la configuration depuis le fichier config.json.
-    save_config: Enregistre la configuration dans le fichier config.json.
-"""
 import os
 import json
 import logging
@@ -19,6 +9,13 @@ DEFAULT_CONFIG = {
     "theme": "clair",
     "default_tags": ["Travail", "Personnel", "Urgent"],
     "backup_path": "backups/",
+    "icons": {
+        "add": "icons/add.png",
+        "delete": "icons/delete.png",
+        "create": "icons/create.png",
+        "cancel": "icons/cancel.png",
+        "save": "icons/save.png"
+    },
     "ui_settings": {
         "font_size": 12,
         "font_family": "Arial",
@@ -39,14 +36,7 @@ def setup_logging():
     )
     logging.info('Application démarrée.')
 
-
 def load_config():
-    """
-    Charge la configuration depuis le fichier config.json.
-
-    Returns:
-        dict: La configuration chargée.
-    """
     try:
         with open(CONFIG_FILE, 'r', encoding='utf-8') as file:
             config = json.load(file)
@@ -56,15 +46,10 @@ def load_config():
     except Exception as e:
         logging.error(f"Erreur lors du chargement de la configuration : {e}")
         config = DEFAULT_CONFIG
+    logging.info(f"Configuration chargée : {config}")
     return config
 
 def save_config(config):
-    """
-    Enregistre la configuration dans le fichier config.json.
-
-    Args:
-        config (dict): La configuration à enregistrer.
-    """
     try:
         with open(CONFIG_FILE, 'w', encoding='utf-8') as file:
             json.dump(config, file, indent=4)

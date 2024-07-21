@@ -30,10 +30,11 @@ Lanceur de l'application de gestion de notes.
 Ce module lance l'interface utilisateur pour gérer les notes.
 """
 
-from src.notes_ui import NotesApp
+from src.app import NotesApp
 import tkinter as tk
 import logging
 import os
+
 
 def setup_logging():
     log_directory = 'logs'
@@ -45,6 +46,7 @@ def setup_logging():
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
     logging.info('Application démarrée.')
+
 
 if __name__ == "__main__":
     setup_logging()
