@@ -1,4 +1,4 @@
-# Preview V2
+# Preview
 ### Dark Theme
 ![dark_theme_note_windowed](https://github.com/user-attachments/assets/cc2b7deb-20da-4e9e-b390-fa86f1e760f5)
 ![dark_theme_note](https://github.com/user-attachments/assets/f343deb5-9f6d-4360-9644-9302611371cc)
@@ -38,9 +38,3 @@ Les contributions sont les bienvenues. Voir [CONTRIBUTION.md](docs/CONTRIBUTION.
 ## Licence
 
 Ce projet est sous licence MIT.
-
-
-# Preview V1
-![Tags_Interface](https://github.com/user-attachments/assets/3569955b-fdf8-49f1-92a3-0c8f5859fd02)
-![Notes_interface](https://github.com/user-attachments/assets/3d6b4afb-a8ab-4dc1-85f4-a0754ddf6187)
-![Main_interface](https://github.com/user-attachments/assets/7330f678-99b9-4788-ade8-eb65a79fb2ed)
