@@ -4,7 +4,6 @@ from src.managers import Note
 from src.dialogs import *
 from config import save_config
 
-
 class NotesManagerHelper:
     def __init__(self, app):
         self.app = app

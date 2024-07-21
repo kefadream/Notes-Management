@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from src.utils import ImageButton
+from icons import SAVE_ICON, CANCEL_ICON
+
 
 class NoteCreationDialog(tk.Toplevel):
     def __init__(self, parent, callback, tags, theme_manager):
@@ -11,6 +13,7 @@ class NoteCreationDialog(tk.Toplevel):
         self.theme_manager = theme_manager
 
         self.resizable(False, False)
+        self.attributes('-topmost', 'true')  # Priorité d'affichage
 
         frame = ttk.Frame(self, padding="10")
         frame.grid(row=0, column=0, sticky=tk.W + tk.E + tk.N + tk.S)
@@ -30,9 +33,9 @@ class NoteCreationDialog(tk.Toplevel):
         button_frame = ttk.Frame(frame)
         button_frame.grid(row=3, column=0, columnspan=2, pady=5)
 
-        save_button = ImageButton(button_frame, "icons/save.png", command=self.save_note, size=(24, 24))
+        save_button = ImageButton(button_frame, SAVE_ICON, command=self.save_note, size=(24, 24))
         save_button.pack(side=tk.LEFT, padx=5)
-        cancel_button = ImageButton(button_frame, "icons/cancel.png", command=self.destroy, size=(24, 24))
+        cancel_button = ImageButton(button_frame, CANCEL_ICON, command=self.destroy, size=(24, 24))
         cancel_button.pack(side=tk.LEFT, padx=5)
 
         self.theme_manager.apply_theme(self)

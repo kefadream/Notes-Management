@@ -1,16 +1,16 @@
-"""
-Dialogue pour afficher les détails d'une note.
-
-Ce module contient la classe NoteDetailsDialog pour créer une interface
-permettant d'afficher les détails d'une note.
-"""
-
 import tkinter as tk
 from tkinter import ttk
 from src.utils import ImageButton
+from icons import CANCEL_ICON
 
 
 class NoteDetailsDialog(tk.Toplevel):
+    """
+    Dialogue pour afficher les détails d'une note.
+
+    Ce module contient la classe NoteDetailsDialog pour créer une interface
+    permettant d'afficher les détails d'une note.
+    """
     def __init__(self, parent, note, theme_manager):
         super().__init__(parent)
         self.title("Détails de la note")
@@ -36,7 +36,12 @@ class NoteDetailsDialog(tk.Toplevel):
         button_frame = ttk.Frame(frame)
         button_frame.grid(row=3, column=0, columnspan=2, pady=5)
 
-        close_button = ImageButton(button_frame, "icons/close.png", command=self.destroy, size=(24, 24))
+        close_button = ImageButton(button_frame, CANCEL_ICON, command=self.destroy, size=(24, 24))
         close_button.pack(side=tk.LEFT, padx=5)
 
         self.theme_manager.apply_theme(self)
+
+        self.transient(parent)
+        self.grab_set()
+        self.focus_set()
+        self.wait_window(self)

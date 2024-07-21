@@ -1,9 +1,23 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from src.utils import ImageButton
+from icons import SAVE_ICON, CANCEL_ICON
 
 class NoteEditDialog(tk.Toplevel):
+    """
+    Classe NoteEditDialog
+    Cette classe représente un dialogue pour modifier une note existante.
+    """
     def __init__(self, parent, note, callback, tags, theme_manager):
+        """
+        Initialise le dialogue de modification de note.
+
+        :param parent: La fenêtre parent.
+        :param note: La note à modifier.
+        :param callback: La fonction de rappel à appeler lors de la modification de la note.
+        :param tags: Les tags disponibles.
+        :param theme_manager: Le gestionnaire de thème.
+        """
         super().__init__(parent)
         self.title("Modifier la note")
         self.callback = callback
@@ -34,14 +48,23 @@ class NoteEditDialog(tk.Toplevel):
         button_frame = ttk.Frame(frame)
         button_frame.grid(row=3, column=0, columnspan=2, pady=5)
 
-        save_button = ImageButton(button_frame, "icons/save.png", command=self.save_changes, size=(24, 24))
+        save_button = ImageButton(button_frame, SAVE_ICON, command=self.save_changes, size=(24, 24))
         save_button.pack(side=tk.LEFT, padx=5)
-        cancel_button = ImageButton(button_frame, "icons/cancel.png", command=self.destroy, size=(24, 24))
+        cancel_button = ImageButton(button_frame, CANCEL_ICON, command=self.destroy, size=(24, 24))
         cancel_button.pack(side=tk.LEFT, padx=5)
 
         self.theme_manager.apply_theme(self)
 
+        # Assurez-vous que ces méthodes sont appelées après que la fenêtre soit complètement initialisée
+        self.transient(parent)
+        self.grab_set()
+        self.focus_set()
+        self.wait_window(self)
+
     def save_changes(self):
+        """
+        Sauvegarde les changements et appelle le callback.
+        """
         new_title = self.title_entry.get().strip()
         new_content = self.content_text.get("1.0", tk.END).strip()
         new_tags = self.tags_combobox.get().strip().split(',')

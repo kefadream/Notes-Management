@@ -6,14 +6,15 @@ from src.managers import *
 from src.frames import NoteListFrame, NotePreviewFrame
 from src.notes_manager_helper import NotesManagerHelper
 from src.utils import ImageButton, toggle_fullscreen, toggle_theme
+from icons import *
+
+
 class NotesApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Gestionnaire de Notes")
         self.config = load_config()
         print(f"Configuration chargée : {self.config}")  # Ajoutez cette ligne pour vérifier la configuration chargée
-        if 'icons' not in self.config:
-            raise KeyError("La configuration ne contient pas la section 'icons'")
         self.manager = NotesManager()
         self.theme_manager = ThemeManager()
         self.theme_manager.set_theme(self.config.get('theme', 'light'))
@@ -63,22 +64,22 @@ class NotesApp:
         create_group = ttk.LabelFrame(action_frame, text="Gestion des Notes", padding="10")
         create_group.pack(side=tk.LEFT, padx=5, pady=5)
 
-        create_button = ImageButton(create_group, self.config['icons']['create'], command=self.helper.open_create_dialog, size=(32, 32))
+        create_button = ImageButton(create_group, CREATE_ICON, command=self.helper.open_create_dialog, size=(32, 32))
         create_button.pack(side=tk.LEFT, padx=5)
         ttk.Label(create_group, text="Créer").pack(side=tk.LEFT, padx=5)
 
-        delete_button = ImageButton(create_group, self.config['icons']['delete'], command=self.helper.open_delete_dialog, size=(32, 32))
+        delete_button = ImageButton(create_group, DELETE_ICON, command=self.helper.open_delete_dialog, size=(32, 32))
         delete_button.pack(side=tk.LEFT, padx=5)
         ttk.Label(create_group, text="Supprimer").pack(side=tk.LEFT, padx=5)
 
         tag_group = ttk.LabelFrame(action_frame, text="Gestion des Tags", padding="10")
         tag_group.pack(side=tk.LEFT, padx=5, pady=5)
 
-        add_tag_button = ImageButton(tag_group, self.config['icons']['add'], command=self.helper.open_add_tag_dialog, size=(32, 32))
+        add_tag_button = ImageButton(tag_group, ADD_ICON, command=self.helper.open_add_tag_dialog, size=(32, 32))
         add_tag_button.pack(side=tk.LEFT, padx=5)
         ttk.Label(tag_group, text="Ajouter").pack(side=tk.LEFT, padx=5)
 
-        delete_tag_button = ImageButton(tag_group, self.config['icons']['delete'], command=self.helper.open_delete_tag_dialog, size=(32, 32))
+        delete_tag_button = ImageButton(tag_group, REMOVE_ICON, command=self.helper.open_delete_tag_dialog, size=(32, 32))
         delete_tag_button.pack(side=tk.LEFT, padx=5)
         ttk.Label(tag_group, text="Supprimer").pack(side=tk.LEFT, padx=5)
 
@@ -123,10 +124,12 @@ class NotesApp:
         self.notes_tree.bind("<<TreeviewSelect>>", self.helper.on_tree_select)
         self.refresh_notes()
 
+
 def main():
     root = tk.Tk()
     app = NotesApp(root)
     root.mainloop()
+
 
 if __name__ == "__main__":
     main()

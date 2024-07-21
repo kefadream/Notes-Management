@@ -2,6 +2,7 @@ import os
 import json
 import logging
 
+
 CONFIG_FILE = 'data/config.json'
 DEFAULT_CONFIG = {
     "tags": ["Travail", "Personnel", "Urgent"],
@@ -9,13 +10,6 @@ DEFAULT_CONFIG = {
     "theme": "clair",
     "default_tags": ["Travail", "Personnel", "Urgent"],
     "backup_path": "backups/",
-    "icons": {
-        "add": "icons/add.png",
-        "delete": "icons/delete.png",
-        "create": "icons/create.png",
-        "cancel": "icons/cancel.png",
-        "save": "icons/save.png"
-    },
     "ui_settings": {
         "font_size": 12,
         "font_family": "Arial",
@@ -23,6 +17,7 @@ DEFAULT_CONFIG = {
         "fg_color": "#000000"
     }
 }
+
 
 def setup_logging():
     log_directory = 'logs'
