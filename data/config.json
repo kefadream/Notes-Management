@@ -1,0 +1,21 @@
+{
+    "tags": [
+        "Travail",
+        "Personnel",
+        "Urgent"
+    ],
+    "autosave_interval": 10,
+    "theme": "clair",
+    "default_tags": [
+        "Travail",
+        "Personnel",
+        "Urgent"
+    ],
+    "backup_path": "backups/",
+    "ui_settings": {
+        "font_size": 12,
+        "font_family": "Arial",
+        "bg_color": "#ffffff",
+        "fg_color": "#000000"
+    }
+}

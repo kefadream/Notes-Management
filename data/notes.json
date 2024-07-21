@@ -1,0 +1,11 @@
+[
+    {
+        "id": "b152f477-7bc1-4645-8868-9a001aadf603",
+        "title": "Note Example",
+        "content": "Voici un example de note !",
+        "tags": [
+            "Personnel"
+        ],
+        "created_at": "2024-07-21 19:32:28"
+    }
+]
