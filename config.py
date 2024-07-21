@@ -8,11 +8,11 @@ Fonctions:
     load_config: Charge la configuration depuis le fichier config.json.
     save_config: Enregistre la configuration dans le fichier config.json.
 """
-
+import os
 import json
 import logging
 
-CONFIG_FILE = 'config.json'
+CONFIG_FILE = 'data/config.json'
 DEFAULT_CONFIG = {
     "tags": ["Travail", "Personnel", "Urgent"],
     "autosave_interval": 10,
@@ -26,6 +26,19 @@ DEFAULT_CONFIG = {
         "fg_color": "#000000"
     }
 }
+
+def setup_logging():
+    log_directory = 'logs'
+    if not os.path.exists(log_directory):
+        os.makedirs(log_directory)
+    logging.basicConfig(
+        filename=os.path.join(log_directory, 'notes_app.log'),
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+        encoding='utf-8'
+    )
+    logging.info('Application démarrée.')
+
 
 def load_config():
     """

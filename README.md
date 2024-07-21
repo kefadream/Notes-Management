@@ -11,39 +11,19 @@ Une application de gestion de notes utilisant Tkinter pour l'interface utilisate
 
 ## Installation
 
-1. Clonez le dépôt :
-    ```sh
-    git clone https://github.com/votre-utilisateur/gestionnaire-de-notes.git
-    ```
-2. Installez les dépendances :
-    ```sh
-    pip install -r requirements.txt
-    ```
+Voir [INSTALLATION.md](docs/INSTALLATION.md) pour les instructions d'installation.
 
 ## Utilisation
 
-1. Lancez l'application :
-    ```sh
-    python main.py
-    ```
+Voir [USAGE.md](docs/USAGE.md) pour les instructions d'utilisation.
 
 ## Structure du Projet
 
-- `main.py` : Lanceur de l'application.
-- `config.py` : Gestion de la configuration de l'application.
-- `notes_manager.py` : Gestionnaire des opérations CRUD pour les notes.
-- `notes_ui.py` : Interface utilisateur de l'application.
-- `dialogs/` : Contient les dialogues pour les notes et les tags.
-
-## Dépendances
-
-- `tkinter`
-- `json`
-- `logging`
+Voir [STRUCTURE.md](docs/STRUCTURE.md) pour la structure du projet.
 
 ## Contribution
 
-Les contributions sont les bienvenues. Veuillez créer une pull request ou ouvrir une issue pour discuter des changements.
+Les contributions sont les bienvenues. Voir [CONTRIBUTION.md](docs/CONTRIBUTION.md) pour plus d'informations.
 
 ## Licence
 

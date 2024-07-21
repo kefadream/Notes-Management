@@ -1,4 +1,6 @@
-from .creation_dialog import NoteCreationDialog
-from .edit_dialog import NoteEditDialog
-from .delete_dialog import NoteDeleteDialog
-from .details_dialog import NoteDetailsDialog
+from .note_creation_dialog import NoteCreationDialog
+from .note_edit_dialog import NoteEditDialog
+from .note_delete_dialog import NoteDeleteDialog
+from .note_details_dialog import NoteDetailsDialog
+
+__all__ = ['NoteCreationDialog', 'NoteEditDialog', 'NoteDeleteDialog', 'NoteDetailsDialog']
