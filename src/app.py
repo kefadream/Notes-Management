@@ -1,12 +1,14 @@
 # app.py
 import tkinter as tk
 from tkinter import ttk
+import json
+import logging
+from icons import *
 from config import load_config
 from src.managers import *
 from src.frames import NoteListFrame, NotePreviewFrame
 from src.notes_manager_helper import NotesManagerHelper
 from src.utils import ImageButton, toggle_fullscreen, toggle_theme
-from icons import *
 
 
 class NotesApp:
@@ -14,7 +16,7 @@ class NotesApp:
         self.root = root
         self.root.title("Gestionnaire de Notes")
         self.config = load_config()
-        print(f"Configuration chargée : {self.config}")  # Ajoutez cette ligne pour vérifier la configuration chargée
+        print(f"Configuration chargée : {self.config}")
         self.manager = NotesManager()
         self.theme_manager = ThemeManager()
         self.theme_manager.set_theme(self.config.get('theme', 'light'))
@@ -43,6 +45,9 @@ class NotesApp:
         root.attributes('-fullscreen', self.fullscreen)
 
         self.create_toggle_fullscreen_button()
+
+        # Charger les notes à l'ouverture
+        self.refresh_notes()
 
     def create_toggle_fullscreen_button(self):
         button_frame = ttk.Frame(self.root)
@@ -79,7 +84,8 @@ class NotesApp:
         add_tag_button.pack(side=tk.LEFT, padx=5)
         ttk.Label(tag_group, text="Ajouter").pack(side=tk.LEFT, padx=5)
 
-        delete_tag_button = ImageButton(tag_group, REMOVE_ICON, command=self.helper.open_delete_tag_dialog, size=(32, 32))
+        delete_tag_button = ImageButton(tag_group, REMOVE_ICON, command=self.helper.open_delete_tag_dialog,
+                                        size=(32, 32))
         delete_tag_button.pack(side=tk.LEFT, padx=5)
         ttk.Label(tag_group, text="Supprimer").pack(side=tk.LEFT, padx=5)
 
@@ -94,11 +100,34 @@ class NotesApp:
         toggle_theme(self.theme_manager, self.config, self.root)
         self.theme_label.config(text=f"Thème: {self.theme_manager.theme}")
 
+    def load_notes_from_file(self, filename):
+        try:
+            with open(filename, 'r', encoding='utf-8') as file:
+                notes_data = json.load(file)
+                for note_data in notes_data:
+                    note = Note(
+                        title=note_data['title'],
+                        content=note_data['content'],
+                        tags=note_data['tags'],
+                        created_at=note_data['created_at']
+                    )
+                    note.id = note_data['id']  # Ensure the original ID is retained
+                    self.manager.add_note(note)
+        except FileNotFoundError:
+            logging.warning(f"Le fichier {filename} n'a pas été trouvé.")
+        except json.JSONDecodeError as e:
+            logging.error(f"Erreur de décodage JSON lors du chargement des notes : {e}")
+        except Exception as e:
+            logging.error(f"Une erreur s'est produite lors du chargement des notes : {e}")
+
     def refresh_notes(self):
+        self.manager.notes.clear()  # Clear existing notes to avoid duplication
+        self.load_notes_from_file('data/notes.json')  # Charge les notes depuis le fichier
         for item in self.notes_tree.get_children():
             self.notes_tree.delete(item)
         for note in self.manager.get_notes():
-            self.notes_tree.insert("", "end", values=(note.id, note.title, note.content, ', '.join(note.tags), note.created_at))
+            self.notes_tree.insert("", "end",
+                                   values=(note.id, note.title, note.content, ', '.join(note.tags), note.created_at))
 
     def create_note_list_frame(self, parent):
         self.note_list_frame = NoteListFrame(parent, self.manager.get_notes(), self.update_note_preview)
@@ -112,7 +141,8 @@ class NotesApp:
         self.note_preview_frame.update_preview(note)
 
     def create_notes_tree(self, parent):
-        self.notes_tree = ttk.Treeview(parent, columns=("id", "title", "content", "tags", "created_at"), show='headings')
+        self.notes_tree = ttk.Treeview(parent, columns=("id", "title", "content", "tags", "created_at"),
+                                       show='headings')
         self.notes_tree.heading("id", text="ID")
         self.notes_tree.heading("title", text="Titre")
         self.notes_tree.heading("content", text="Contenu")
@@ -122,7 +152,6 @@ class NotesApp:
         self.notes_tree.pack(fill=tk.BOTH, expand=True)
         self.notes_tree.bind("<Double-1>", self.helper.on_tree_double_click)
         self.notes_tree.bind("<<TreeviewSelect>>", self.helper.on_tree_select)
-        self.refresh_notes()
 
 
 def main():

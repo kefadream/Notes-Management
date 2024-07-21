@@ -1,8 +1,8 @@
+# note_creation_dialog.py
 import tkinter as tk
 from tkinter import ttk, messagebox
 from src.utils import ImageButton
-from icons import SAVE_ICON, CANCEL_ICON
-
+from icons import DONE_ICON, CANCEL_ICON
 
 class NoteCreationDialog(tk.Toplevel):
     def __init__(self, parent, callback, tags, theme_manager):
@@ -13,7 +13,6 @@ class NoteCreationDialog(tk.Toplevel):
         self.theme_manager = theme_manager
 
         self.resizable(False, False)
-        self.attributes('-topmost', 'true')  # Priorité d'affichage
 
         frame = ttk.Frame(self, padding="10")
         frame.grid(row=0, column=0, sticky=tk.W + tk.E + tk.N + tk.S)
@@ -33,12 +32,17 @@ class NoteCreationDialog(tk.Toplevel):
         button_frame = ttk.Frame(frame)
         button_frame.grid(row=3, column=0, columnspan=2, pady=5)
 
-        save_button = ImageButton(button_frame, SAVE_ICON, command=self.save_note, size=(24, 24))
+        save_button = ImageButton(button_frame, DONE_ICON, command=self.save_note, size=(24, 24))
         save_button.pack(side=tk.LEFT, padx=5)
         cancel_button = ImageButton(button_frame, CANCEL_ICON, command=self.destroy, size=(24, 24))
         cancel_button.pack(side=tk.LEFT, padx=5)
 
         self.theme_manager.apply_theme(self)
+
+        self.transient(parent)
+        self.grab_set()
+        self.focus_set()
+        self.wait_window(self)
 
     def save_note(self):
         title = self.title_entry.get().strip()
@@ -46,7 +50,10 @@ class NoteCreationDialog(tk.Toplevel):
         tags = self.tags_combobox.get().strip().split(',')
 
         if title and content:
-            self.callback(title, content, tags)
-            self.destroy()
+            try:
+                self.callback(title, content, tags)
+                self.destroy()
+            except ValueError as e:
+                messagebox.showerror("Erreur", str(e))
         else:
             messagebox.showwarning("Erreur", "Le titre et le contenu sont requis.")

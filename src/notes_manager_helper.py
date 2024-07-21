@@ -1,3 +1,4 @@
+# notes_manager_helper.py
 from tkinter import messagebox
 import logging
 from src.managers import Note
@@ -17,6 +18,9 @@ class NotesManagerHelper:
             self.app.manager.add_note(note)
             self.app.refresh_notes()
             messagebox.showinfo("Succès", "Note enregistrée avec succès!")
+        except ValueError as e:
+            logging.error(f"Erreur lors de la création de la note : {e}")
+            messagebox.showerror("Erreur", str(e))
         except Exception as e:
             logging.error(f"Erreur lors de la création de la note : {e}")
             messagebox.showerror("Erreur", "Une erreur est survenue lors de la création de la note.")
@@ -24,10 +28,11 @@ class NotesManagerHelper:
     def open_delete_dialog(self):
         NoteDeleteDialog(self.app.root, self.app.manager.get_notes(), self.delete_notes, self.app.theme_manager)
 
-    def delete_notes(self, note_ids):
+    def delete_notes(self, note_titles):
         try:
-            for note_id in note_ids:
-                self.app.manager.delete_note(note_id)
+            for note_title in note_titles:
+                note = next(note for note in self.app.manager.get_notes() if note.title == note_title)
+                self.app.manager.delete_note(note.id)
             self.app.refresh_notes()
             messagebox.showinfo("Succès", "Notes supprimées avec succès!")
         except Exception as e:

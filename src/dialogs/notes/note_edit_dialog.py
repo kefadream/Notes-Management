@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from src.utils import ImageButton
-from icons import SAVE_ICON, CANCEL_ICON
+from icons import DONE_ICON, CANCEL_ICON
 
 class NoteEditDialog(tk.Toplevel):
     """
@@ -48,7 +48,7 @@ class NoteEditDialog(tk.Toplevel):
         button_frame = ttk.Frame(frame)
         button_frame.grid(row=3, column=0, columnspan=2, pady=5)
 
-        save_button = ImageButton(button_frame, SAVE_ICON, command=self.save_changes, size=(24, 24))
+        save_button = ImageButton(button_frame, DONE_ICON, command=self.save_changes, size=(24, 24))
         save_button.pack(side=tk.LEFT, padx=5)
         cancel_button = ImageButton(button_frame, CANCEL_ICON, command=self.destroy, size=(24, 24))
         cancel_button.pack(side=tk.LEFT, padx=5)
