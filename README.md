@@ -1,8 +1,11 @@
 # Preview V2
 ### Dark Theme
+![dark_theme_note_windowed](https://github.com/user-attachments/assets/cc2b7deb-20da-4e9e-b390-fa86f1e760f5)
 ![dark_theme_note](https://github.com/user-attachments/assets/f343deb5-9f6d-4360-9644-9302611371cc)
 
+
 ### Light Theme
+![light_theme_note_windowed](https://github.com/user-attachments/assets/76acbad7-97af-4387-aae1-7bcaebc3ceb8)
 ![light_theme_note](https://github.com/user-attachments/assets/684ffba5-3303-4492-a3e8-e0d6e42697e1)
 
 
